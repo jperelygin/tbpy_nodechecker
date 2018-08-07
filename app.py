@@ -25,8 +25,7 @@ def reader(r: dict) -> dict:
             pass
         elif r[title] == "offline":
             all_online = False
-        finally:
-            response[title] = title
+        response[title] = title
     if all_online == False:
         send_mess(response) # sends message to group if any node is offline
     return response # a dict without api_key
@@ -34,7 +33,7 @@ def reader(r: dict) -> dict:
 def send_mess(resp: dict):
     text = json.JSONEncoder().encode(resp)
     data = {"chat_id":GROUP, "text":text} # GROP from api_key
-    request.post('https://api.telegram.org/bot'+KEY+'/sendMessage',data=data)
+    request.post('https://api.telegram.org/bot'+TG_KEY+'/sendMessage',data=data)
 
 
 if __name__ == '__main__':
