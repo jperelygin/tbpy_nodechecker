@@ -18,14 +18,17 @@ class Node:
         """
         # TODO try/catch if the logfile does not exist
         today = day_log()
-        filepath = path + '\\logs\\' + today + '.txt' # path to the log of the current day
-        size1 = get_size(filepath) # size of the logfile 
-        time.sleep(5)
-        size2 = get_size(filepath) # size of the logfile after 5 secs
-        if size1 == size2:
-            state = 'offline' # state of the PrintNode app
-        else:
-            state = 'online'
+        try:
+            filepath = path + '\\logs\\' + today + '.txt' # path to the log of the current day
+            size1 = get_size(filepath) # size of the logfile 
+            time.sleep(5)
+            size2 = get_size(filepath) # size of the logfile after 5 secs
+            if size1 == size2:
+                state = 'offline' # state of the PrintNode app
+            else:
+                state = 'online'
+        except FileNotFoundError: # if there is no logfile for today - node state is offline automatically
+            state = 'offline'
         return state
 
 

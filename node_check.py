@@ -1,12 +1,13 @@
 import nodes
 import requests
-from api_key import API_KEY, adress
+from api_key import API_KEY, adress, user
 
 def send(nodes: dict) -> str:
     """ Sends a request with <dict> of nodes and node states to flask app.
     """
     data = dict()
-    data["api_key"] = api_key # adds required api_key to the data <dict>
+    data["api_key"] = API_KEY # adds required api_key to the data <dict>
+    data["SERVER"] = nodes.user # adds a name of server to the data
     for node in nodes: # adds all nodes and their states to the data <dict>
         data[node] = node
     r = requests.post(adress, data=data) # adress == flask app adress

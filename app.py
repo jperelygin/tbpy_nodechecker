@@ -1,5 +1,6 @@
 from flask import Flask, abort, request, jsonify
-from api_key import API_KEY
+from api_key import API_KEY, TG_KEY, GROUP
+import json
 
 app = Flask(__name__)
 
@@ -17,13 +18,23 @@ def check() -> dict:
 def reader(r: dict) -> dict:
     """ Request parser. Gets reed of the api_key in response dictionary
     """
+    all_online = True # trigger of online nodes
     response = dict()
-    for text in r:
-        if text == "api_key":
+    for title in r:
+        if title == "api_key":
             pass
-        else :
-            response[text] = text
+        elif r[title] == "offline":
+            all_online = False
+        finally:
+            response[title] = title
+    if all_online == False:
+        send_mess(response) # sends message to group if any node is offline
     return response # a dict without api_key
+
+def send_mess(resp: dict):
+    text = json.JSONEncoder().encode(resp)
+    data = {"chat_id":GROUP, "text":text} # GROP from api_key
+    request.post('https://api.telegram.org/bot'+KEY+'/sendMessage',data=data)
 
 
 if __name__ == '__main__':

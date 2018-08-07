@@ -6,5 +6,9 @@ from node_class import Node
 
 node1 = Node('first node', 'path_to_the_node')
 
+# user - is a name of server
+
+user = "username"
+
 # an array of <Node> objects. Do not forget to add them all 
 list_of_nodes = [node1,]
