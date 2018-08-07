@@ -3,7 +3,6 @@ import time
 import os
 
 class Node:
-
     state = 'offline'
 
     def __init__(self, name, path):
@@ -11,8 +10,6 @@ class Node:
         self.path = path
 
     def check_state(self, path):
-        r = two_symbols(2)
-        print(r)
         today = day_log()
         filepath = path + '\\logs\\' + today + '.txt'
         size1 = get_size(filepath)
