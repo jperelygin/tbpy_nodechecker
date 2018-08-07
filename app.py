@@ -1,6 +1,5 @@
 from flask import Flask, abort, request, jsonify
 from api_key import API_KEY
-import node_check
 
 app = Flask(__name__)
 
@@ -10,7 +9,6 @@ def check():
         abort(400)
     if request.json['api_key'] != API_KEY:
         abort(401)
-    #print('\n'+str(request.json)+'\n')
     resp = reader(request.json)
     return jsonify(resp)
 
@@ -25,4 +23,4 @@ def reader(r):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1', port=8080, debug=True)

@@ -1,8 +1,14 @@
 import nodes
 import requests
+from api_key import API_KEY, adress
 
-def send(response):
-    pass
+def send(nodes):
+    data = dict()
+    data["api_key"] = api_key
+    for node in nodes:
+        data[node] = node
+    r = requests.post(adress, data=data)
+    print(r.text)
 
 def check():
     resp = dict()
