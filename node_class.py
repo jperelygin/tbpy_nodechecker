@@ -16,7 +16,6 @@ class Node:
 
         Logs of the PrintNode app writes all the time, so the size of the logfile is always gets bigger
         """
-        # TODO try/catch if the logfile does not exist
         today = day_log()
         try:
             filepath = path + '\\logs\\' + today + '.txt' # path to the log of the current day
