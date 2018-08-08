@@ -1,16 +1,22 @@
 from flask import Flask, abort, request, jsonify
 from api_key import API_KEY, TG_KEY, GROUP
 import json
+import logging
 
 app = Flask(__name__)
+logFormatter = '%(actime)s - %(message)s'
+logging.basicConfig(format=logFormatter, level=logging.DEBUG, filename='log.txt')
+logger = logging.getLogger(__name__)
 
 @app.route('/check', methods=['POST'])
 def check() -> dict:
     """ Main method of the app. Gets a request and data from it
     """
     if not request.json or 'api_key' not in request.json: # BAD REQUEST if request is not json or missing api_key
+        logger.info("400. Bad request. Request:" + str(request.json))
         abort(400)
     if request.json['api_key'] != API_KEY: # api_key check
+        logger.info("401. Unathorised. Request:" + str(request.json))
         abort(401)
     resp = reader(request.json)
     return jsonify(resp) # nodes dict in json
