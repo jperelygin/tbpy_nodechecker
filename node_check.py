@@ -10,12 +10,17 @@ def send(nodes: dict) -> str:
     headers = {'Content-type': 'application/json',
                 'Chache-Control': 'no-cache'}
     data = dict()
+    send = 0
     data["api_key"] = API_KEY # adds required api_key to the data <dict>
     data["SERVER"] = USER # adds a name of server to the data
     for node in nodes: # adds all nodes and their states to the data <dict>
         data[node] = node
-    r = requests.post(adress, json=data, headers=headers) # adress == flask app adress
-    print(r.text) # response
+        if data[node] == "offline":
+            send = 1
+    if send = 1:
+        r = requests.post(adress, json=data, headers=headers) # adress == flask app adress
+        print(r.text) # response
+    send = 0
 
 def check() -> dict:
     """ Checks all the nodes from nodes.list_of_nodes and returns <dict> of nodes and their states
